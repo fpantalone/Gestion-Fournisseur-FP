@@ -15,7 +15,10 @@ Début programme gestion fournissueurs
 
 		var reponse : N <- 0
 		var liste_four : fournisseur <- creer fournissuer
-
+		var num : N <-0
+		var nom : T <-""
+		var retour : fournisseur <- null
+		var compteur_fournisseur : N <-0
 
 	Fin variable locales
 
@@ -27,24 +30,57 @@ Début programme gestion fournissueurs
 			Cas ou reponse
 
 				Cas 1
-					liste_four = Ajouter_fournisseur (liste_four, NB_MAX_FOUR)
+					compteur_fournisseur = compteur_fournisseur + 1
+					liste_four = Ajouter_fournisseur (liste_four, NB_MAX_FOUR,compteur_fournisseur)
 
 				cas 2
 					lister_fournisseur (liste_four)
 
 				cas 3
-					recherche_num_fournisseur (liste_four)
+					afficher ("entrer un numero de fournisseur")
+					saisir num
+					retour = recherche_num_fournisseur (liste_four, num)
+
+					si retour == null
+						alors
+							afficher ("fournisseur inexistant")
+						sinon
+							afficher retour.num_four
+							afficher retour.nom
+							afficher retour.tel
+							afficher retour.mail
+							afficher retpour.commande
+					fin si	
 
 				cas 4
-					recherche_nom_fournisseur (liste_four)
+					afficher ("entrer un nom de fournisseur")
+					saisir nom
+					recherche_nom_fournisseur (liste_four, nom)
+					
+					si retour == null
+						alors
+							afficher ("fournisseur inexistant")
+						sinon
+							afficher retour.num_four
+							afficher retour.nom
+							afficher retour.tel
+							afficher retour.mail
+							afficher retpour.commande
+					fin si	
+
+
 				cas 5
 					modif_fournisseur (liste_four)
+
 				cas 6
 					supprime_fournisseur (liste_four)
+
 				cas 7 
 					afficher "Fin du programme"
+
 				autre cas
 					afficher "Choisisser une option entre 1 et 7"
+
 			Fin cas ou
 
 	jusqu'a ce que reponse = 7
@@ -70,6 +106,8 @@ Fonction afficher_menu () : N
 	retourne reponse
 fin fonction afficher menu
 
+------------------------------------------------------------------------
+
 fonction compte_fournisseurs (in liste: Fournisseur) : N
 	
 	var nb_four :N <-0
@@ -82,34 +120,38 @@ fonction compte_fournisseurs (in liste: Fournisseur) : N
 	retourne nb_four
 fin fonction compte_Fournisseurs
 
-Ajout_fournisseur (in liste: fournisseur, in nb_max) : fournisseur
+------------------------------------------------------------------------
+
+Ajout_fournisseur (in liste: fournisseur, in nb_max, in num_four: N) : fournisseur
 	
 	var new_four : fournissuer <- creer fournisseur
 	var nom : T <-""
 
 	si compte_fournisseurs (liste) <= nb_max+1
 		alors
-			afficher "Entre le nom du fournisseur"
-			repeter 
-				saisir nom
+			repeter
+				afficher "Entre le nom du fournisseur"
+			 	saisir nom
 			jusqu'a ce que longeur(nom)>0
 
-			si recherche_nom_fournisseur (liste, nom) = 0
+			si recherche_nom_fournisseur (liste, nom) == null
 				alors
 					new_four.nom = nom
-					new_four.num_four = aleatoire (1000)
+					new_four.num_four = num_four
 					afficher "entrer le téléphone du fournisseur"
 					saisir new_four.tel
 					afficher "entrer lemail du fournisseur"
 					saisir new_four.mail
+					new_four.commande = faux
 					new_four.suivant = liste
+
 					retourne new_four
 		sinon
 			afficher " La liste est complète"
 	fin si 
-
 fin ajout_fournisseur
 
+-------------------------------------------------------------------------
 
 procedure lister_fournisseurs (in liste : fournisseur)
 
@@ -122,5 +164,35 @@ procedure lister_fournisseurs (in liste : fournisseur)
 		sinon
 			afficher "la liste de fournisseurs est vide"
 	fin si
+fin procedure lister_fournisseurs
 
-fin procedure lister_fournisseur
+------------------------------------------------------------------------
+
+fonction rechercher_num_fournisseur (in liste : fournisseur, in num: N) : fournisseur
+	
+	var parcour : fournisseur <- liste_four
+	
+	si liste_four != null
+
+		alors
+			tant que (liste_four.num != num)
+				parcour=liste.suivant
+			fin tant que
+	fin si
+	retourne liste		
+fin fonction rechercher_num_fournisseur
+
+------------------------------------------------------------------------
+
+fonction recherche_nom_fournisseur (in liste: fournisseur, in nom: T) : fournisseur
+	var parcour : fournisseur <- liste
+	
+	si liste != null
+
+		alors
+			tant que (liste_four.nom != nom)
+				parcour=liste.suivant
+			fin tant que
+	fin si
+	retourne parcour		
+fin fonction rechercher_nom_fournisseur
