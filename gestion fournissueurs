@@ -16,6 +16,7 @@ Début programme gestion fournissueurs
 		var reponse : N <- 0
 		var liste_four : fournisseur <- creer fournissuer
 
+
 	Fin variable locales
 
 		
@@ -26,7 +27,7 @@ Début programme gestion fournissueurs
 			Cas ou reponse
 
 				Cas 1
-					Ajouter_fournisseur (liste_four, NB_MAX_FOUR)
+					liste_four = Ajouter_fournisseur (liste_four, NB_MAX_FOUR)
 
 				cas 2
 					lister_fournisseur (liste_four)
@@ -81,10 +82,31 @@ fonction compte_fournisseurs (in liste: Fournisseur) : N
 	retourne nb_four
 fin fonction compte_Fournisseurs
 
-Ajout_fournisseur (in liste: fournisseur, in nb_max)
-	new_four : fournissuer <- creer fournisseur
+Ajout_fournisseur (in liste: fournisseur, in nb_max) : fournisseur
+	
+	var new_four : fournissuer <- creer fournisseur
+	var nom : T <-""
 
-	si compte_fournisseurs (liste)
+	si compte_fournisseurs (liste) <= nb_max+1
+		alors
+			afficher "Entre le nom du fournisseur"
+			repeter 
+				saisir nom
+			jusqu'a ce que longeur(nom)>0
+
+			si recherche_nom_fournisseur (liste, nom) = 0
+				alors
+					new_four.nom = nom
+					new_four.num_four = aleatoire (1000)
+					afficher "entrer le téléphone du fournisseur"
+					saisir new_four.tel
+					afficher "entrer lemail du fournisseur"
+					saisir new_four.mail
+					new_four.suivant = liste
+					retourne new_four
+		sinon
+			afficher " La liste est complète"
+	fin si 
 
 fin ajout_fournisseur
 
