@@ -1,0 +1,104 @@
+Début programme gestion fournissueurs
+
+	Debut variables locales
+
+		Const NB_MAX_FOUR : N <- 50
+
+		structure fournisseur
+			num_four: N
+			nom : T
+			tel: T
+			mail: T
+			commande :B
+			suivant : Fournisseur
+		fin structure
+
+		var reponse : N <- 0
+		var liste_four : fournisseur <- creer fournissuer
+
+	Fin variable locales
+
+		
+	répeter
+	
+		reponse = afficher_menu
+
+			Cas ou reponse
+
+				Cas 1
+					Ajouter_fournisseur (liste_four, NB_MAX_FOUR)
+
+				cas 2
+					lister_fournisseur (liste_four)
+
+				cas 3
+					recherche_num_fournisseur (liste_four)
+
+				cas 4
+					recherche_nom_fournisseur (liste_four)
+				cas 5
+					modif_fournisseur (liste_four)
+				cas 6
+					supprime_fournisseur (liste_four)
+				cas 7 
+					afficher "Fin du programme"
+				autre cas
+					afficher "Choisisser une option entre 1 et 7"
+			Fin cas ou
+
+	jusqu'a ce que reponse = 7
+
+Fin programme gestion fournisseurs
+
+
+
+Fonction afficher_menu () : N
+	
+	var reponse : N <- 0
+
+	Afficher "que voulez vous faire"
+	afficher "1: ajouter un fournissuer"
+	afficher "2: afficher la liste des fournisseurs"
+	afficher "3: rechercher un fournissuer par numéro"
+	afficher "4: rechercher un fournisseur par nom"
+	afficher "5: Modifier les coordonnées d'un fournisseur"
+	afficher "6: Supprimer un fournissuer"
+	afficher "7: quitter"
+
+	saisir reponse
+	retourne reponse
+fin fonction afficher menu
+
+fonction compte_fournisseurs (in liste: Fournisseur) : N
+	
+	var nb_four :N <-0
+
+	tant que liste != null
+		liste = liste.suivant
+		nb_four = nb_four + 1
+	fin tant que
+
+	retourne nb_four
+fin fonction compte_Fournisseurs
+
+Ajout_fournisseur (in liste: fournisseur, in nb_max)
+	new_four : fournissuer <- creer fournisseur
+
+	si compte_fournisseurs (liste)
+
+fin ajout_fournisseur
+
+
+procedure lister_fournisseurs (in liste : fournisseur)
+
+	si  compte_fournisseur (liste) != 0
+
+		alors
+			tant que (liste != null)
+				afficher liste.num_four
+				afficher liste.,nom
+		sinon
+			afficher "la liste de fournisseurs est vide"
+	fin si
+
+fin procedure lister_fournisseur
